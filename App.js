@@ -11,7 +11,6 @@ import reducers from './src/reducers';
 import firebase from 'firebase';
 import Router from './src/Router';
 
-
 export default class App extends Component{
   componentWillMount(){
     var firebaseConfig = {
@@ -30,6 +29,7 @@ export default class App extends Component{
       <Provider store={createStore(reducers,{},applyMiddleware(ReduxThunk))}>
         <Router/>
       </Provider>
+      
     );
   }
 }

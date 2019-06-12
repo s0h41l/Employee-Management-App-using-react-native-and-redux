@@ -1,12 +1,11 @@
 import React,{Component} from 'react';
-import {View,Text,TouchableOpacity,TextInput,Picker} from 'react-native';
+import {View,Text,TouchableOpacity,ListView,TextInput,Picker} from 'react-native';
 import {connect} from 'react-redux';
 import {phoneChange,nameChange,shiftChange,AddEmployee} from '../actions/EmployeeActions';
 
+
 class CreateEmployee extends Component{
-    onButtonPress(){
-        
-    }
+    
     render(){
         return(
             <View style={{marginTop:5}}>
@@ -42,7 +41,8 @@ mapStateToProps=state=>{
     return{
         name:state.employee.name,
         phone:state.employee.phone,
-        shift:state.employee.shift
+        shift:state.employee.shift,
+        employees:state.employeeCrud
     }
 }
 

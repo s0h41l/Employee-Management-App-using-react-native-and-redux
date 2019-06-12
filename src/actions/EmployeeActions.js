@@ -1,4 +1,4 @@
-import {NAME_CHANGE,PHONE_CHANGE,SHIFT_CHANGE,EMPLOYEE_SAVED} from './type';
+import {NAME_CHANGE,PHONE_CHANGE,SHIFT_CHANGE,EMPLOYEE_SAVED,EMPLOYEE_DATA_FETCH} from './type';
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import {Actions} from 'react-native-router-flux';
@@ -8,7 +8,6 @@ import {Actions} from 'react-native-router-flux';
 
 
 export const AddEmployee=({name,phone,shift})=>{
-    console.log({name,phone,shift});
     const {currentUser}=firebase.auth();
     return dispatch=>{
         firebase.database().ref(`/users/${currentUser.uid}/employees`)
@@ -41,5 +40,16 @@ export const shiftChange=(text)=>{
     return{
         type:SHIFT_CHANGE,
         payload:text
+    }
+}
+
+export const employeeDataFetch=()=>{
+    return (dispatch)=>{
+        const {currentUser}=firebase.auth();
+        firebase.database().ref(`/users/${currentUser.uid}/employees`)
+        .on('value',snapshot=>{
+            dispatch({type:EMPLOYEE_DATA_FETCH,payload:snapshot.val()});
+        })
+        
     }
 }
