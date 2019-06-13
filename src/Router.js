@@ -2,8 +2,8 @@ import React from 'react';
 import {Router,Scene, Actions} from 'react-native-router-flux';
 import Form from './components/Form';
 import EmployeeList from './components/EmployeeList';
-import EmployeeInfo from './components/EmployeInfo';
 import CreateEmployeeForm from './components/CreateEmployeeForm';
+import EmployeeUpdate from './components/EmployeeUpdate';
 
 const RouterComponent=()=>{
     return(
@@ -19,11 +19,8 @@ const RouterComponent=()=>{
                         component={EmployeeList}
                         title="Employee List"
                       />
-                    <Scene key="employeeDetail"
-                        component={EmployeeInfo}
-                        rightTitle="Update"onRight={()=>alert("Hosla!")}
-                        title="Employee Info"/>
                     <Scene key="employeeCreate" component={CreateEmployeeForm} title="Add Employee"/>
+                    <Scene key="employeeUpdate" component={EmployeeUpdate} title="Update Employee"/>
                     
                 </Scene>
             </Scene>   

@@ -1,14 +1,16 @@
 import React,{Component} from 'react';
 import {View,Text,TouchableOpacity,ListView,TextInput,Picker} from 'react-native';
 import {connect} from 'react-redux';
-import {phoneChange,nameChange,shiftChange,AddEmployee} from '../actions/EmployeeActions';
+import {phoneChange,nameChange,shiftChange,AddEmployee,cleanFrom} from '../actions/EmployeeActions';
 
 
 class CreateEmployee extends Component{
-    
+    componentWillMount(){
+        this.props.cleanFrom();
+    }
     render(){
         return(
-            <View style={{marginTop:5}}>
+            <View style={{paddingTop:10,backgroundColor:'white',height:'100%'}}>
                 <View  style={{marginVertical:2,borderColor:"#B7B7B7",borderWidth:1,marginHorizontal:5,borderRadius:20,paddingHorizontal:10}}> 
                     <TextInput value={this.props.name} onChangeText={(text)=>this.props.nameChange(text)} style={{fontSize:18,color:'#424242'}} placeholder={"Name"}/>
                 </View> 
@@ -42,8 +44,7 @@ mapStateToProps=state=>{
         name:state.employee.name,
         phone:state.employee.phone,
         shift:state.employee.shift,
-        employees:state.employeeCrud
     }
 }
 
-export default connect(mapStateToProps,{phoneChange,nameChange,shiftChange,AddEmployee})(CreateEmployee);
+export default connect(mapStateToProps,{phoneChange,nameChange,shiftChange,AddEmployee,cleanFrom})(CreateEmployee);

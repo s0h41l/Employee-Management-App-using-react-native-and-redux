@@ -5,8 +5,6 @@ import {connect} from 'react-redux';
 import {employeeDataFetch} from '../actions/EmployeeActions';
 import _ from 'lodash';
 import Listitem from './ListItem'
-
-
 class List extends Component{
     componentWillMount(){
         this.props.employeeDataFetch();
@@ -30,9 +28,9 @@ class List extends Component{
     }
 
     render(){
-        console.log(this.props.employees);
+
         return(
-            <View style={{marginTop:5}}>
+            <View style={{paddingTop:10,backgroundColor:'white',height:'100%'}}>
         <ListView
             enableEmptySections
              dataSource={this.state.dataSource}

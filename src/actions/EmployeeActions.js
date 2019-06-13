@@ -1,11 +1,16 @@
-import {NAME_CHANGE,PHONE_CHANGE,SHIFT_CHANGE,EMPLOYEE_SAVED,EMPLOYEE_DATA_FETCH} from './type';
+import {NAME_CHANGE,
+    PHONE_CHANGE,
+    SHIFT_CHANGE,
+    EMPLOYEE_SAVED,
+    EMPLOYEE_DATA_FETCH,
+    EMPLOYEE_UPDATE,
+    CLEAN,UPDATE_SAVED,
+    EMPLOYEE_DELETED
+} from './type';
+
 import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
 import {Actions} from 'react-native-router-flux';
-
-
-
-
 
 export const AddEmployee=({name,phone,shift})=>{
     const {currentUser}=firebase.auth();
@@ -51,5 +56,48 @@ export const employeeDataFetch=()=>{
             dispatch({type:EMPLOYEE_DATA_FETCH,payload:snapshot.val()});
         })
         
+    }
+}
+
+export const employeeUpdate=({name,phone,shift,uid})=>{
+        return{
+            type:EMPLOYEE_UPDATE,
+            payload:{name,phone,shift,uid}
+        }
+}
+
+export const cleanFrom=()=>{
+    return{
+        type:CLEAN,
+        payload:""
+    }
+}
+
+
+export const SaveChanges=({name,phone,shift,uid})=>{
+    return (dispatch)=>{
+        const {currentUser}=firebase.auth();
+        firebase.database().ref(`users/${currentUser.uid}/employees/${uid}`)
+        .set({name,phone,shift})
+        .then(()=>{
+            Actions.main({type:'reset'});
+            dispatch({type:CLEAN,payload:""});
+        });
+        
+    }
+}
+
+
+export const employeeDelete=({uid})=>{
+    console.log("jfdkjgflkjgfkljgflkjflkgl");
+    return (dispatch)=>{
+        const {currentUser}=firebase.auth();
+        firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
+        .remove()
+        .then(()=>{
+            dispatch({type:EMPLOYEE_DELETED,payload:""});
+            dispatch({type:CLEAN,payload:""});
+            Actions.main({type:"reset"});
+        })
     }
 }

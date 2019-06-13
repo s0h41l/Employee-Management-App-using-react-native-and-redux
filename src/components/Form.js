@@ -34,7 +34,7 @@ class Form extends Component{
 
     render(){
         return(
-            <View style={{marginTop:5}}>
+            <View style={{paddingTop:10,backgroundColor:'white',height:'100%'}}>
                 <View style={{marginVertical:2,borderColor:"black",borderWidth:0.5,marginHorizontal:5,borderRadius:20,paddingHorizontal:10}}>
                     <TextInput value={this.props.email} onChangeText={(text)=>this.onChangeEmail(text)} style={{fontSize:18,color:'#424242'}} placeholder={"Email"}/>
                 </View> 
